@@ -1,0 +1,23 @@
+
+@{
+    ViewData["Title"] = "Thực hành ViewData";
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["TieuDe"]</h2>
+
+    <div class="alert alert-info">
+        @ViewData["ThongBao"]
+    </div>
+
+    <p>
+        Họ tên:
+        <strong>@ViewData["HoTen"]</strong>
+    </p>
+
+    <a asp-controller="Demo"
+       asp-action="Index"
+       class="btn btn-primary">
+        Quay lại ViewBag
+    </a>
+</div>

@@ -1,2 +1,56 @@
-<h1>Hello</h1>
-<h2>Welcome to the DemoController</h2>
+
+@{
+    ViewData["Title"] = "Thực hành ViewBag";
+}
+
+<div class="container mt-4">
+
+    <!-- Tiêu đề trang -->
+    <h2 class="demo-title">
+        @ViewBag.TieuDe
+    </h2>
+
+    <!-- Thông báo từ Controller -->
+    <div class="alert alert-info demo-card">
+        <i class="bi bi-info-circle"></i>
+        @ViewBag.ThongBao
+    </div>
+
+    <!-- Thông tin người dùng -->
+    <div class="card shadow-sm mt-4">
+        <div class="card-header bg-primary text-white">
+            Thông tin người dùng
+        </div>
+
+        <div class="card-body">
+            <p class="mb-3">
+                Họ tên:
+                <strong>@ViewBag.HoTen</strong>
+            </p>
+
+            <p class="text-muted">
+                Đây là ví dụ truyền dữ liệu từ Controller sang View
+                bằng ViewBag.
+            </p>
+
+            <a asp-controller="Demo"
+               asp-action="Hello"
+               class="btn btn-primary me-2">
+                Xem ví dụ Model
+            </a>
+
+            <a asp-controller="Demo"
+               asp-action="Privacy"
+               class="btn btn-outline-primary me-2">
+                Xem ViewData
+            </a>
+
+            <a asp-controller="Demo"
+               asp-action="ThucHanhTempData"
+               class="btn btn-outline-success">
+                Thực hành TempData
+            </a>
+        </div>
+    </div>
+
+</div>

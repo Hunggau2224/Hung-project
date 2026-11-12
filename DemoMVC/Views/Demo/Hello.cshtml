@@ -1,0 +1,14 @@
+
+@model DemoMVC.Models.ThongTinViewModel
+
+@{
+    ViewData["Title"] = "Ví dụ truyền dữ liệu";
+}
+
+<div class="container mt-4">
+    <h2>Thông tin người dùng</h2>
+
+    <p>Họ tên: @Model.HoTen</p>
+    <p>Tuổi: @Model.Tuoi</p>
+    <p>Thông báo: @Model.ThongBao</p>
+</div>

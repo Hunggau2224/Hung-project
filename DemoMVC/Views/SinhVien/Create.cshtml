@@ -1,0 +1,65 @@
+
+@model DemoMVC.Models.SinhVien
+
+@{
+    ViewData["Title"] = "Thêm sinh viên";
+}
+
+<div class="container mt-4">
+    <h2 class="demo-title">Thêm sinh viên</h2>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="HoTen" class="form-label"></label>
+                    <input asp-for="HoTen" class="form-control" />
+                    <span asp-validation-for="HoTen"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Lop" class="form-label"></label>
+                    <input asp-for="Lop" class="form-control" />
+                    <span asp-validation-for="Lop"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="KhoaId" class="form-label">Khoa</label>
+                    <select asp-for="KhoaId"
+                            asp-items="ViewBag.KhoaId"
+                            class="form-select">
+                        <option value="">-- Chọn khoa --</option>
+                    </select>
+                    <span asp-validation-for="KhoaId"
+                          class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Thêm sinh viên
+                </button>
+
+                <a asp-action="Index" class="btn btn-secondary">
+                    Quay lại
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

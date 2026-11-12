@@ -1,0 +1,26 @@
+
+@{
+    ViewData["Title"] = "Thực hành TempData";
+}
+
+<div class="container mt-4">
+    <h2>Thực hành TempData</h2>
+
+    @if (TempData["ThongBao"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["ThongBao"]
+        </div>
+    }
+
+    <p>Nhấn nút bên dưới để thử truyền thông báo.</p>
+
+    <form asp-controller="Demo"
+          asp-action="GuiThongBao"
+          method="post">
+
+        <button type="submit" class="btn btn-primary">
+            Gửi thông báo
+        </button>
+    </form>
+</div>

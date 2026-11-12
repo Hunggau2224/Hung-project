@@ -1,36 +1,193 @@
-@model DemoMVC.Models.SinhVien
 
-<h1>ĐĂNG KÝ SINH VIÊN</h1>
+@model IEnumerable<DemoMVC.Models.SinhVien>
 
-<p>@ViewBag.ThongBao</p>
+@{
+    ViewData["Title"] = "Danh sách sinh viên";
 
-<p>Khoa: @ViewData["Khoa"]</p>
+    int currentPage = ViewBag.CurrentPage ?? 1;
+    int totalPages = ViewBag.TotalPages ?? 0;
+    int totalStudents = ViewBag.TotalStudents ?? 0;
 
-<form asp-controller="SinhVien" asp-action="Index" method="post">
-
-    <p>
-        Họ tên:
-        <input type="text" name="HoTen" />
-    </p>
-    <p>
-        Email:
-        <input type="text" name="Email" />
-    </p>
-
-    <p>
-        Lớp:
-        <input type="text" name="Lop" />
-    </p>
-
-    <button type="submit">Đăng ký</button>
-
-</form>
-
-@if (Model != null)
-{
-    <h2>Thông tin sinh viên</h2>
-
-    <p>Họ tên: @Model.HoTen</p>
-    <p>Email: @Model.Email</p>
-    <p>Lớp: @Model.Lop</p>
+    string searchString = ViewBag.SearchString ?? "";
+    string lopHienTai = ViewBag.Lop ?? "";
 }
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="demo-title mb-0">Danh sách sinh viên</h2>
+
+        <a asp-action="Create" class="btn btn-primary">
+            Thêm sinh viên
+        </a>
+    </div>
+
+    <!-- Tìm kiếm và lọc -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <form asp-action="Index" method="get">
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-5">
+                        <label for="searchString" class="form-label">
+                            Tìm theo họ tên hoặc email
+                        </label>
+
+                        <input type="text"
+                               id="searchString"
+                               name="searchString"
+                               value="@searchString"
+                               class="form-control"
+                               placeholder="Nhập họ tên hoặc email..." />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="lop" class="form-label">
+                            Lọc theo lớp
+                        </label>
+
+                        <select id="lop" name="lop" class="form-select">
+                            <option value="">-- Tất cả lớp --</option>
+
+                            @foreach (string lopItem in ViewBag.DanhSachLop)
+                            {
+                                if (lopItem == lopHienTai)
+                                {
+                                    <option value="@lopItem" selected>
+                                        @lopItem
+                                    </option>
+                                }
+                                else
+                                {
+                                    <option value="@lopItem">
+                                        @lopItem
+                                    </option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-primary">
+                            Tìm kiếm
+                        </button>
+
+                        <a asp-action="Index" class="btn btn-secondary">
+                            Đặt lại
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Thống kê -->
+    <p class="text-muted">
+        Tổng số sinh viên: <strong>@totalStudents</strong>
+    </p>
+
+    <!-- Bảng dữ liệu -->
+    <div class="card shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
+                <thead class="table-primary">
+                    <tr>
+                        <th>STT</th>
+                        <th>Họ tên</th>
+                        <th>Email</th>
+                        <th>Lớp</th>
+                        <th>Khoa</th>
+                        <th style="min-width: 230px;">Thao tác</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model.Any())
+                    {
+                        int stt = (currentPage - 1) * 5 + 1;
+
+                        foreach (var sv in Model)
+                        {
+                            <tr>
+                                <td>@stt</td>
+                                <td>@sv.HoTen</td>
+                                <td>@sv.Email</td>
+                                <td>@sv.Lop</td>
+                                <td>@(sv.Khoa?.TenKhoa ?? "Chưa phân khoa")</td>
+
+                                <td>
+                                    <a asp-action="Details"
+                                       asp-route-id="@sv.Id"
+                                       class="btn btn-info btn-sm">
+                                        Chi tiết
+                                    </a>
+
+                                    <a asp-action="Edit"
+                                       asp-route-id="@sv.Id"
+                                       class="btn btn-warning btn-sm">
+                                        Sửa
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                       asp-route-id="@sv.Id"
+                                       class="btn btn-danger btn-sm">
+                                        Xóa
+                                    </a>
+                                </td>
+                            </tr>
+
+                            stt++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center py-4">
+                                Không tìm thấy sinh viên phù hợp.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Phân trang -->
+    @if (totalPages > 1)
+    {
+        <nav aria-label="Phân trang sinh viên" class="mt-4">
+            <ul class="pagination justify-content-center">
+                <li class="page-item @(currentPage <= 1 ? "disabled" : "")">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-page="@(currentPage - 1)"
+                       asp-route-searchString="@searchString"
+                       asp-route-lop="@lopHienTai">
+                        Trước
+                    </a>
+                </li>
+
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    <li class="page-item @(i == currentPage ? "active" : "")">
+                        <a class="page-link"
+                           asp-action="Index"
+                           asp-route-page="@i"
+                           asp-route-searchString="@searchString"
+                           asp-route-lop="@lopHienTai">
+                            @i
+                        </a>
+                    </li>
+                }
+
+                <li class="page-item @(currentPage >= totalPages ? "disabled" : "")">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-page="@(currentPage + 1)"
+                       asp-route-searchString="@searchString"
+                       asp-route-lop="@lopHienTai">
+                        Sau
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>

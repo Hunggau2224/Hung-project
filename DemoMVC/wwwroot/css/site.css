@@ -1,31 +1,147 @@
+/* ==============================
+   1. CẤU HÌNH CHUNG
+   ============================== */
+
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #212529;
+    background-color: #f8f9fa;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+
+/* ==============================
+   2. NÚT VÀ HIỆU ỨNG FOCUS
+   ============================== */
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+
+/* ==============================
+   3. THANH ĐIỀU HƯỚNG
+   ============================== */
+
+.navbar {
+    background-color: #ffffff;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: #0d6efd !important;
+}
+
+.navbar .nav-link {
+    transition: color 0.2s ease;
+}
+
+.navbar .nav-link:hover {
+    color: #0d6efd !important;
+}
+
+
+/* ==============================
+   4. FOOTER
+   ============================== */
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+    background-color: #ffffff;
+}
+
+
+/* ==============================
+   5. TIÊU ĐỀ DEMO
+   ============================== */
+
+.demo-title {
+    font-weight: 700;
+    color: #0d6efd;
+    margin-bottom: 20px;
+}
+
+
+/* ==============================
+   6. KHUNG NỘI DUNG DEMO
+   ============================== */
+
+.demo-card {
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+
+/* ==============================
+   7. THẺ CARD
+   ============================== */
+
+.card {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.card-header {
+    font-weight: 600;
+}
+
+
+/* ==============================
+   8. FORM
+   ============================== */
+
+.form-label {
+    font-weight: 600;
+}
+
+.form-control {
+    border-radius: 6px;
+}
+
+
+/* ==============================
+   9. BẢNG DỮ LIỆU
+   ============================== */
+
+.table {
+    vertical-align: middle;
+}
+
+.table thead th {
+    white-space: nowrap;
+}
+
+
+/* ==============================
+   10. GIAO DIỆN MÀN HÌNH NHỎ
+   ============================== */
+
+@media (max-width: 576px) {
+    .demo-title {
+        font-size: 1.5rem;
+    }
+    .demo-card {
+        padding: 12px;
+    }
 }
