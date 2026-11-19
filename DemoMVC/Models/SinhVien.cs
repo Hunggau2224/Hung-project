@@ -1,4 +1,3 @@
-
 using System.ComponentModel.DataAnnotations;
 
 namespace DemoMVC.Models
@@ -6,6 +5,9 @@ namespace DemoMVC.Models
     public class SinhVien
     {
         public int Id { get; set; }
+
+        [Display(Name = "Mã sinh viên")]
+        public string MaSinhVien { get; set; } = "";
 
         [Required(ErrorMessage = "Họ tên không được để trống")]
         [StringLength(100, ErrorMessage = "Họ tên không được vượt quá 100 ký tự")]

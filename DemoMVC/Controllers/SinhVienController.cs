@@ -104,6 +104,19 @@ namespace DemoMVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                var sinhVienCuoi = _context.SinhViens
+                    .OrderByDescending(s => s.Id)
+                    .FirstOrDefault();
+
+                int soThuTu = 1;
+
+                if (sinhVienCuoi != null)
+                {
+                    soThuTu = sinhVienCuoi.Id + 1;
+                }
+
+                sv.MaSinhVien = $"SV{soThuTu:D3}";
+
                 _context.SinhViens.Add(sv);
                 _context.SaveChanges();
 

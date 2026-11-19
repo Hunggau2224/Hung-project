@@ -1,4 +1,3 @@
-
 @model DemoMVC.Models.SinhVien
 
 @{
@@ -11,6 +10,7 @@
     <div class="card shadow-sm">
         <div class="card-body">
             <form asp-action="Create" method="post">
+
                 <div asp-validation-summary="ModelOnly"
                      class="text-danger mb-3"></div>
 
@@ -36,12 +36,18 @@
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="KhoaId" class="form-label">Khoa</label>
+                    <label asp-for="KhoaId" class="form-label">
+                        Khoa
+                    </label>
+
                     <select asp-for="KhoaId"
                             asp-items="ViewBag.KhoaId"
                             class="form-select">
+
                         <option value="">-- Chọn khoa --</option>
+
                     </select>
+
                     <span asp-validation-for="KhoaId"
                           class="text-danger"></span>
                 </div>
@@ -50,9 +56,11 @@
                     Thêm sinh viên
                 </button>
 
-                <a asp-action="Index" class="btn btn-secondary">
+                <a asp-action="Index"
+                   class="btn btn-secondary">
                     Quay lại
                 </a>
+
             </form>
         </div>
     </div>
